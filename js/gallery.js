@@ -77,9 +77,10 @@ function getElement(event) {
 }
 
 const galleryList = document.querySelector('.gallery');
-images.forEach(({ preview = '', original = '', description = '' }) => {
-  if (preview.trim() != '' || original.trim() != '') {
-    let item = `<li class="gallery-item">
+const items = images
+  .map(({ preview = '', original = '', description = '' }) => {
+    if (preview.trim() != '' || original.trim() != '') {
+      return `<li class="gallery-item">
   <a class="gallery-link" href="${original}">
     <img
       class="gallery-image"
@@ -90,8 +91,8 @@ images.forEach(({ preview = '', original = '', description = '' }) => {
     />
   </a>
 </li>`;
-    galleryList.insertAdjacentHTML('beforeend', item);
-  }
-});
-
+    }
+  })
+  .join('');
+galleryList.insertAdjacentHTML('beforeend', items);
 galleryList.addEventListener('click', getElement);
